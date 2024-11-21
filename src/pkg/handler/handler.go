@@ -7,11 +7,17 @@ import (
 	models "github.com/kossadda/wallet-service"
 )
 
-type Handler struct {
+func New() *handler {
+	var h handler
+
+	return &h
+}
+
+type handler struct {
 	// insert database field
 }
 
-func (h *Handler) InitRoutes() *gin.Engine {
+func (h *handler) InitRoutes() *gin.Engine {
 	router := gin.New()
 
 	api := router.Group("/api")
@@ -23,10 +29,10 @@ func (h *Handler) InitRoutes() *gin.Engine {
 	return router
 }
 
-func (h *Handler) handleWalletOperation(ctx *gin.Context) {
-	var request models.WalletRequest
+func (h *handler) handleWalletOperation(ctx *gin.Context) {
+	request := models.NewRequest()
 
-	if err := ctx.ShouldBindJSON(&request); err != nil {
+	if err := ctx.ShouldBindJSON(request); err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -36,7 +42,7 @@ func (h *Handler) handleWalletOperation(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{"message": "Operation successful"})
 }
 
-func (h *Handler) handleGetWalletBalance(ctx *gin.Context) {
+func (h *handler) handleGetWalletBalance(ctx *gin.Context) {
 	walletID := ctx.Param("walletId")
 
 	// insert database get balance sum
