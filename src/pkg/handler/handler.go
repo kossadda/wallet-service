@@ -1,20 +1,16 @@
 package handler
 
 import (
-	"net/http"
-
 	"github.com/gin-gonic/gin"
-	models "github.com/kossadda/wallet-service"
+	"github.com/kossadda/wallet-service/pkg/service"
 )
 
-func New() *handler {
-	var h handler
-
-	return &h
+func New(serv *service.Service) *handler {
+	return &handler{services: serv}
 }
 
 type handler struct {
-	// insert database field
+	services *service.Service
 }
 
 func (h *handler) InitRoutes() *gin.Engine {
@@ -22,30 +18,9 @@ func (h *handler) InitRoutes() *gin.Engine {
 
 	api := router.Group("/api")
 	{
-		api.POST("/wallet", h.handleWalletOperation)
-		api.GET("/wallets/:walletId", h.handleGetWalletBalance)
+		api.POST("/wallet", handleWalletOperation)
+		api.GET("/wallets/:walletId", handleGetWalletBalance)
 	}
 
 	return router
-}
-
-func (h *handler) handleWalletOperation(ctx *gin.Context) {
-	request := models.NewRequest()
-
-	if err := ctx.ShouldBindJSON(request); err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
-	// insert database wallet operation logic
-
-	ctx.JSON(http.StatusOK, gin.H{"message": "Operation successful"})
-}
-
-func (h *handler) handleGetWalletBalance(ctx *gin.Context) {
-	walletID := ctx.Param("walletId")
-
-	// insert database get balance sum
-
-	ctx.JSON(http.StatusOK, gin.H{"walletId": walletID, "balance": 1000})
 }
