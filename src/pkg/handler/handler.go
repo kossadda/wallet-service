@@ -18,8 +18,8 @@ func (h *handler) InitRoutes() *gin.Engine {
 
 	api := router.Group("/api")
 	{
-		api.POST("/wallet", handleWalletOperation)
-		api.GET("/wallets/:walletId", handleGetWalletBalance)
+		api.POST("/wallet", h.handleWalletOperation)
+		api.GET("/wallets/:walletId", h.handleGetWalletBalance)
 	}
 
 	return router

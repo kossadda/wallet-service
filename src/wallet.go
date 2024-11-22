@@ -3,9 +3,7 @@ package models
 import "github.com/google/uuid"
 
 func NewRequest() *request {
-	var r request
-
-	return &r
+	return &request{}
 }
 
 type request struct {

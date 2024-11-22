@@ -7,7 +7,7 @@ import (
 	models "github.com/kossadda/wallet-service"
 )
 
-func handleWalletOperation(ctx *gin.Context) {
+func (h *handler) handleWalletOperation(ctx *gin.Context) {
 	request := models.NewRequest()
 
 	if err := ctx.ShouldBindJSON(request); err != nil {
@@ -20,7 +20,7 @@ func handleWalletOperation(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{"message": "Operation successful"})
 }
 
-func handleGetWalletBalance(ctx *gin.Context) {
+func (h *handler) handleGetWalletBalance(ctx *gin.Context) {
 	walletID := ctx.Param("walletId")
 
 	// insert database get balance sum
