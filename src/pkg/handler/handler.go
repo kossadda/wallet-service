@@ -5,16 +5,16 @@ import (
 	"github.com/kossadda/wallet-service/pkg/service"
 )
 
-func New(serv *service.Service) *handler {
-	return &handler{services: serv}
-}
-
-type handler struct {
+type Handler struct {
 	services *service.Service
 }
 
-func (h *handler) InitRoutes() *gin.Engine {
-	// gin.SetMode(gin.ReleaseMode)
+func New(serv *service.Service) *Handler {
+	return &Handler{services: serv}
+}
+
+func (h *Handler) InitRoutes() *gin.Engine {
+	gin.SetMode(gin.ReleaseMode)
 	router := gin.New()
 
 	api := router.Group("/api")

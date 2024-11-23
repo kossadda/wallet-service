@@ -1,13 +1,20 @@
 package repository
 
-import "github.com/jmoiron/sqlx"
+import (
+	"github.com/jmoiron/sqlx"
+	models "github.com/kossadda/wallet-service"
+)
 
-type Operation interface{}
+type Operation interface {
+	Deposit(req models.Request) (int, error)
+}
 
 type Repository struct {
 	Operation
 }
 
 func New(db *sqlx.DB) *Repository {
-	return &Repository{}
+	return &Repository{
+		Operation: NewOperationPostgres(db),
+	}
 }

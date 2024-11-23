@@ -1,19 +1,19 @@
 package main
 
 import (
-	"log"
-
 	models "github.com/kossadda/wallet-service"
 	"github.com/kossadda/wallet-service/pkg/handler"
 	"github.com/kossadda/wallet-service/pkg/repository"
 	"github.com/kossadda/wallet-service/pkg/service"
 	_ "github.com/lib/pq"
+	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 )
 
 func main() {
+	logrus.SetFormatter(&logrus.JSONFormatter{})
 	if err := initConfig(); err != nil {
-		log.Fatalf("error while configurating: %s", err.Error())
+		logrus.Fatalf("error while configurating: %s", err.Error())
 	}
 
 	db, err := repository.NewPostgresDB(repository.Config{
@@ -26,7 +26,7 @@ func main() {
 	})
 
 	if err != nil {
-		log.Fatalf("failed to initialize db: %s", err.Error())
+		logrus.Fatalf("failed to initialize db: %s", err.Error())
 	}
 
 	repos := repository.New(db)
@@ -35,7 +35,7 @@ func main() {
 
 	srv := models.NewServer()
 	if err := srv.Run(viper.GetString("port"), handlers.InitRoutes()); err != nil {
-		log.Fatalf("error while running http server: %s", err.Error())
+		logrus.Fatalf("error while running http server: %s", err.Error())
 	}
 }
 

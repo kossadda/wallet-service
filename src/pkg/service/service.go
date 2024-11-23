@@ -1,13 +1,20 @@
 package service
 
-import "github.com/kossadda/wallet-service/pkg/repository"
+import (
+	models "github.com/kossadda/wallet-service"
+	"github.com/kossadda/wallet-service/pkg/repository"
+)
 
-type Operation interface{}
+type Operators interface {
+	Deposit(req models.Request) (int, error)
+}
 
 type Service struct {
-	Operation
+	Operators
 }
 
 func New(repos *repository.Repository) *Service {
-	return &Service{}
+	return &Service{
+		Operators: NewOperationService(*repos),
+	}
 }

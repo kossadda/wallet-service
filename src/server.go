@@ -6,17 +6,15 @@ import (
 	"time"
 )
 
-func NewServer() *server {
-	var s server
-
-	return &s
-}
-
-type server struct {
+type Server struct {
 	httpServer *http.Server
 }
 
-func (s *server) Run(port string, handler http.Handler) error {
+func NewServer() *Server {
+	return &Server{}
+}
+
+func (s *Server) Run(port string, handler http.Handler) error {
 	s.httpServer = &http.Server{
 		Addr:           ":" + port,
 		Handler:        handler,
@@ -28,6 +26,6 @@ func (s *server) Run(port string, handler http.Handler) error {
 	return s.httpServer.ListenAndServe()
 }
 
-func (s *server) Shutdown(ctx context.Context) error {
+func (s *Server) Shutdown(ctx context.Context) error {
 	return s.httpServer.Shutdown(ctx)
 }

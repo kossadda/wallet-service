@@ -1,26 +1,31 @@
 package handler
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 	models "github.com/kossadda/wallet-service"
 )
 
-func (h *handler) handleWalletOperation(ctx *gin.Context) {
+func (h *Handler) handleWalletOperation(ctx *gin.Context) {
 	request := models.NewRequest()
 
 	if err := ctx.ShouldBindJSON(request); err != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		newErrorResponse(ctx, http.StatusBadRequest, err.Error())
 		return
 	}
 
-	// insert database wallet operation logic
+	id, err := h.services.Operators.Deposit(*request)
+	if err != nil {
+		newErrorResponse(ctx, http.StatusInternalServerError, err.Error())
+		return
+	}
 
-	ctx.JSON(http.StatusOK, gin.H{"message": "Operation successful"})
+	ctx.JSON(http.StatusOK, fmt.Sprintf("Successfuly added %d user", id))
 }
 
-func (h *handler) handleGetWalletBalance(ctx *gin.Context) {
+func (h *Handler) handleGetWalletBalance(ctx *gin.Context) {
 	walletID := ctx.Param("walletId")
 
 	// insert database get balance sum

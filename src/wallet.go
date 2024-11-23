@@ -1,13 +1,12 @@
 package models
 
-import "github.com/google/uuid"
-
-func NewRequest() *request {
-	return &request{}
+type Request struct {
+	// id            int    `json:"-"`
+	WalletID      string  `json:"walletId" binding:"required"`
+	OperationType string  `json:"operationType" binding:"required"`
+	Amount        float64 `json:"amount" binding:"required"`
 }
 
-type request struct {
-	WalletID      uuid.UUID `json:"walletId"`
-	OperationType string    `json:"operationType"`
-	Amount        int       `json:"amount"`
+func NewRequest() *Request {
+	return &Request{}
 }
