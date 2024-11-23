@@ -14,6 +14,7 @@ type handler struct {
 }
 
 func (h *handler) InitRoutes() *gin.Engine {
+	// gin.SetMode(gin.ReleaseMode)
 	router := gin.New()
 
 	api := router.Group("/api")
