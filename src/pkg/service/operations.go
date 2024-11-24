@@ -15,6 +15,10 @@ func NewOperationService(repo repository.Repository) *OperationService {
 	}
 }
 
-func (s *OperationService) Deposit(req models.Request) (int, error) {
-	return s.repo.Operation.Deposit(req)
+func (s *OperationService) BalanceChange(req models.Request) (string, error) {
+	return s.repo.Operation.BalanceChange(req)
+}
+
+func (s *OperationService) BalanceCheck(id string) (float64, error) {
+	return s.repo.Operation.BalanceCheck(id)
 }

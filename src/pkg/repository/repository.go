@@ -6,7 +6,8 @@ import (
 )
 
 type Operation interface {
-	Deposit(req models.Request) (int, error)
+	BalanceChange(req models.Request) (string, error)
+	BalanceCheck(id string) (float64, error)
 }
 
 type Repository struct {
