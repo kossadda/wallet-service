@@ -17,7 +17,7 @@ func (h *Handler) InitRoutes() *gin.Engine {
 	gin.SetMode(gin.ReleaseMode)
 	router := gin.New()
 
-	api := router.Group("/api")
+	api := router.Group("/api/v1")
 	{
 		api.POST("/wallet", h.handleWalletOperation)
 		api.GET("/wallets/:walletId", h.handleGetWalletBalance)
