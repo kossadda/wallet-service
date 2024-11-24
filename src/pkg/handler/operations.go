@@ -16,14 +16,9 @@ func (h *Handler) handleWalletOperation(ctx *gin.Context) {
 		return
 	}
 
-	if request.OperationType != "DEPOSIT" && request.OperationType != "WITHDRAW" {
-		newErrorResponse(ctx, http.StatusBadRequest, "operationType does not valid")
-		return
-	}
-
 	id, err := h.services.Operators.BalanceChange(*request)
 	if err != nil {
-		newErrorResponse(ctx, http.StatusInternalServerError, err.Error())
+		newErrorResponse(ctx, http.StatusBadRequest, err.Error())
 		return
 	}
 

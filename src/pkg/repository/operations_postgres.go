@@ -68,7 +68,7 @@ func (s *OperationPostgres) BalanceChange(req models.Request) (string, error) {
 		return "", err
 	}
 
-	return id, nil
+	return req.WalletID, nil
 }
 
 func (s *OperationPostgres) BalanceCheck(id string) (float64, error) {
