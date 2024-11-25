@@ -8,16 +8,26 @@ import (
 	models "github.com/kossadda/wallet-service"
 )
 
+// OperationPostgres is a struct that handles wallet operations in a PostgreSQL database.
 type OperationPostgres struct {
 	db *sqlx.DB
 }
 
+// NewOperationPostgres creates a new OperationPostgres with the given database connection.
+// Returns: *OperationPostgres
 func NewOperationPostgres(db *sqlx.DB) *OperationPostgres {
 	return &OperationPostgres{
 		db: db,
 	}
 }
 
+// BalanceChange changes the balance of the wallet based on the operation type.
+// Returns: string (wallet ID), error
+// Error Codes:
+// - "no wallet with ID": If the wallet does not exist and the operation is not a deposit.
+// - "insufficient funds": If the wallet does not have enough funds for a withdrawal.
+// - "invalid operation type": If the operation type is neither "DEPOSIT" nor "WITHDRAW".
+// - Other database-related errors.
 func (s *OperationPostgres) BalanceChange(req models.Request) (string, error) {
 	var id string
 	var balance float64
@@ -71,6 +81,11 @@ func (s *OperationPostgres) BalanceChange(req models.Request) (string, error) {
 	return req.WalletID, nil
 }
 
+// BalanceCheck checks the balance of the wallet with the given ID.
+// Returns: float64 (balance), error
+// Error Codes:
+// - "no wallet with ID": If the wallet does not exist.
+// - Other database-related errors.
 func (s *OperationPostgres) BalanceCheck(id string) (float64, error) {
 	var balance float64
 

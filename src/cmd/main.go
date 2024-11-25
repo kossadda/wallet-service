@@ -12,6 +12,21 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+// @title Wallet Service API
+// @version 1.0
+// @description This is a wallet service API.
+// @termsOfService http://swagger.io/terms/
+
+// @contact.name API Support
+// @contact.url http://www.swagger.io/support
+// @contact.email support@swagger.io
+
+// @license.name Apache 2.0
+// @license.url http://www.apache.org/licenses/LICENSE-2.0.html
+
+// @host localhost:8080
+// @BasePath /api/v1
+
 func main() {
 	logrus.SetFormatter(&logrus.JSONFormatter{})
 	if err := godotenv.Load("configs/config.env"); err != nil {
@@ -36,7 +51,9 @@ func main() {
 	handlers := handler.New(services)
 
 	srv := models.NewServer()
-	if err := srv.Run(os.Getenv("PORT"), handlers.InitRoutes()); err != nil {
+	router := handlers.InitRoutes()
+
+	if err := srv.Run(os.Getenv("PORT"), router); err != nil {
 		logrus.Fatalf("error while running http server: %s", err.Error())
 	}
 }

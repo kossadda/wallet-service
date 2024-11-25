@@ -8,6 +8,12 @@ import (
 	models "github.com/kossadda/wallet-service"
 )
 
+// handleWalletOperation handles the wallet operation request.
+// Returns:
+// - 200 OK: Success operation with user ID
+// - 400 Bad Request: Invalid request or insufficient funds
+// - 404 Not Found: No wallet with ID
+// - 500 Internal Server Error: Internal server error
 func (h *Handler) handleWalletOperation(ctx *gin.Context) {
 	request := models.NewRequest()
 
@@ -32,6 +38,11 @@ func (h *Handler) handleWalletOperation(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, fmt.Sprintf("Success operation with %s user", id))
 }
 
+// handleGetWalletBalance handles the request to get the wallet balance.
+// Returns:
+// - 200 OK: Wallet balance
+// - 404 Not Found: No wallet with ID
+// - 500 Internal Server Error: Internal server error
 func (h *Handler) handleGetWalletBalance(ctx *gin.Context) {
 	walletID := ctx.Param("walletId")
 
