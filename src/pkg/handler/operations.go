@@ -18,7 +18,14 @@ func (h *Handler) handleWalletOperation(ctx *gin.Context) {
 
 	id, err := h.services.Operators.BalanceChange(*request)
 	if err != nil {
-		newErrorResponse(ctx, http.StatusBadRequest, err.Error())
+		switch err.Error() {
+		case "no wallet with ID":
+			newErrorResponse(ctx, http.StatusNotFound, err.Error())
+		case "insufficient funds":
+			newErrorResponse(ctx, http.StatusBadRequest, err.Error())
+		default:
+			newErrorResponse(ctx, http.StatusInternalServerError, err.Error())
+		}
 		return
 	}
 
@@ -30,7 +37,12 @@ func (h *Handler) handleGetWalletBalance(ctx *gin.Context) {
 
 	balance, err := h.services.Operators.BalanceCheck(walletID)
 	if err != nil {
-		newErrorResponse(ctx, http.StatusBadRequest, err.Error())
+		switch err.Error() {
+		case "no wallet with ID":
+			newErrorResponse(ctx, http.StatusNotFound, err.Error())
+		default:
+			newErrorResponse(ctx, http.StatusInternalServerError, err.Error())
+		}
 		return
 	}
 

@@ -40,7 +40,7 @@ func (s *OperationPostgres) BalanceChange(req models.Request) (string, error) {
 					return "", err
 				}
 			} else {
-				return "", fmt.Errorf("you cannot withdraw from a non-existent account")
+				return "", fmt.Errorf("no wallet with ID")
 			}
 		} else {
 			return "", err
@@ -84,7 +84,7 @@ func (s *OperationPostgres) BalanceCheck(id string) (float64, error) {
 	if err := row.Scan(&balance); err != nil {
 		tx.Rollback()
 		if err == sql.ErrNoRows {
-			return 0.0, fmt.Errorf("no wallet with ID %s", id)
+			return 0.0, fmt.Errorf("no wallet with ID")
 		}
 		return 0.0, err
 	}

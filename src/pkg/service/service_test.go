@@ -19,9 +19,7 @@ func TestBalanceChange(t *testing.T) {
 	mockRepo := repository.Repository{Operation: mockOperation}
 	operationService := NewOperationService(mockRepo)
 
-	req := models.Request{
-		// Initialize with appropriate values
-	}
+	req := models.Request{}
 
 	expectedResult := "success"
 	mockOperation.EXPECT().BalanceChange(req).Return(expectedResult, nil)
@@ -39,9 +37,7 @@ func TestBalanceChangeError(t *testing.T) {
 	mockRepo := repository.Repository{Operation: mockOperation}
 	operationService := NewOperationService(mockRepo)
 
-	req := models.Request{
-		// Initialize with appropriate values
-	}
+	req := models.Request{}
 
 	expectedError := errors.New("some error")
 	mockOperation.EXPECT().BalanceChange(req).Return("", expectedError)
