@@ -1,7 +1,7 @@
 package service
 
 import (
-	models "github.com/kossadda/wallet-service"
+	"github.com/kossadda/wallet-service/models"
 	"github.com/kossadda/wallet-service/pkg/repository"
 )
 

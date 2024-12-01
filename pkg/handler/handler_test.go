@@ -4,13 +4,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"github.com/kossadda/wallet-service/models"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang/mock/gomock"
-	models "github.com/kossadda/wallet-service"
 	"github.com/kossadda/wallet-service/pkg/service"
 	mockservice "github.com/kossadda/wallet-service/pkg/service/mocks"
 

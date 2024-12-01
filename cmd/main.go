@@ -1,10 +1,10 @@
 package main
 
 import (
+	"github.com/kossadda/wallet-service/models"
 	"os"
 
 	"github.com/joho/godotenv"
-	models "github.com/kossadda/wallet-service"
 	"github.com/kossadda/wallet-service/pkg/handler"
 	"github.com/kossadda/wallet-service/pkg/repository"
 	"github.com/kossadda/wallet-service/pkg/service"
@@ -53,7 +53,12 @@ func main() {
 	srv := models.NewServer()
 	router := handlers.InitRoutes()
 
-	if err := srv.Run(os.Getenv("PORT"), router); err != nil {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
+	if err := srv.Run(port, router); err != nil {
 		logrus.Fatalf("error while running http server: %s", err.Error())
 	}
 }

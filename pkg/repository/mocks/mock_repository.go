@@ -5,10 +5,10 @@
 package mocks
 
 import (
+	"github.com/kossadda/wallet-service/models"
 	reflect "reflect"
 
 	gomock "github.com/golang/mock/gomock"
-	models "github.com/kossadda/wallet-service"
 )
 
 // MockOperation is a mock of Operation interface.

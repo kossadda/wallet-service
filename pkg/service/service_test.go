@@ -2,10 +2,10 @@ package service
 
 import (
 	"errors"
+	"github.com/kossadda/wallet-service/models"
 	"testing"
 
 	"github.com/golang/mock/gomock"
-	models "github.com/kossadda/wallet-service"
 	"github.com/kossadda/wallet-service/pkg/repository"
 	mockrepository "github.com/kossadda/wallet-service/pkg/repository/mocks"
 	"github.com/stretchr/testify/assert"

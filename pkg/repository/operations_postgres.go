@@ -3,9 +3,9 @@ package repository
 import (
 	"database/sql"
 	"fmt"
+	"github.com/kossadda/wallet-service/models"
 
 	"github.com/jmoiron/sqlx"
-	models "github.com/kossadda/wallet-service"
 )
 
 // OperationPostgres is a struct that handles wallet operations in a PostgreSQL database.

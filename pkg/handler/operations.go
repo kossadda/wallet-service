@@ -2,10 +2,10 @@ package handler
 
 import (
 	"fmt"
+	"github.com/kossadda/wallet-service/models"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	models "github.com/kossadda/wallet-service"
 )
 
 // handleWalletOperation handles the wallet operation request.

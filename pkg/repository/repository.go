@@ -2,8 +2,7 @@ package repository
 
 import (
 	"github.com/jmoiron/sqlx"
-
-	models "github.com/kossadda/wallet-service"
+	"github.com/kossadda/wallet-service/models"
 )
 
 // Operation is an interface that defines the methods for wallet operations.
